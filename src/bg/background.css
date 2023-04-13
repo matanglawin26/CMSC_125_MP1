@@ -1,0 +1,56 @@
+.background{
+    background-size: cover;
+    background-attachment: fixed;
+    /* background-image: url('./assets/images/bg.png'); */
+}
+
+h1{
+    color: white;
+}
+
+/* hr{
+    position:absolute;
+    top: 428px;
+    left:0;
+    width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    border: 1px solid rgb(192, 226, 191,0.8);
+} */
+
+.horizontal{
+    position:absolute;
+    top: 422px;
+    left:0;
+    width: 100%;
+}
+
+.horizontal line{
+    stroke:rgb(192, 226, 191,0.8);
+    stroke-width:2px;
+    height: 100%;
+}
+
+.vertical{
+    position:absolute;
+    top: 0;
+    left:952px;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical line{
+    stroke:rgb(192, 226, 191,0.8);
+    stroke-width:2px;
+    height: 100%;
+}
+
+.scaleImg{
+    position:absolute;
+    top:40px;
+    left:645px;
+}
+
+.grid-bg{
+    z-index:-2;
+}
