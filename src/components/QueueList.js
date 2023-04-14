@@ -1,10 +1,7 @@
 import React from 'react'
 
 const QueueList = ({ data }) => {
-  // console.log("DATA: ",JSON.stringify(data));
-
   const queueKeys = Object.keys(data);
-  // const key = Object.keys(data).__queue;
 
   const queueList = (key) => {
     return data[key].map(({user, req}, idx) => (
@@ -21,23 +18,9 @@ const QueueList = ({ data }) => {
       </ul>
     </li>
   ));
-  // const queue = Object.values(data).map((item, index) => {
-  //   console.log("ITEM: ", item)
-  //   return (
-    // <li key={index}>
-    //   Resource {item} (R{item}):
-    //   <ul>
-    //   {/* {data[req.id].length > 0 ?        
-    //     queueList(data[req.id])
-    //     : <li>None</li>
-    //   }       */}
-    //   </ul>
-    // </li>
-  // )});
 
   return (
     <ul>
-      {/* {queue} */}
       {queue}
     </ul>
   )

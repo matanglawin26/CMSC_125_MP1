@@ -49,10 +49,18 @@ li{
   margin-right: 1rem;
 }
 
+.sim-button-1:hover{
+  background-color: #91AE95;
+}
+
 .sim-button-2{
   background-color: #C0E2BF;
   margin: 0 1rem;
   
+}
+
+.sim-button-2:hover{
+  background-color: #91AE95;
 }
 
 .sim-button-3{

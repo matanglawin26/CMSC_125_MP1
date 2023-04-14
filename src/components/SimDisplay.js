@@ -50,15 +50,9 @@ const SimDisplay = ({ data }) => {
               <div className='p-3' style={divStyles(req)}>
                 <p className='text-center mb-0 res-info' style={pStyles(req)}>
                   {req.isDone() ? `R${req.id} Complete!`: req.toString()} 
-                  {/* - {req.isWaiting()? "WAITING" : "NOT WAITING"} */}
                 </p>
               </div>
             </div>
-            // <div className={`col box-outline justify-content-center align-items-center ${req.isWaiting()? 'bg-warning' : 'bg-secondary'}`} key={idx}>
-              // <p style={{textAlign:'center'}}>
-              // {req.isDone() ? `R${req.id} Complete!`: req.toString()} - {req.isWaiting()? "WAITING" : "NOT WAITING"}
-              // </p>
-            // </div>
           )
         )
       }
@@ -67,38 +61,11 @@ const SimDisplay = ({ data }) => {
           User {user.id} Requests:
           <div className="container px-4">
             <div className="row gx-4 gy-4">
-              {reqList(user) }
-              {/* {user.isComplete() ? "No Requests Left!" : reqList(user) } */}
-
-              {/* <div class="col">
-                <div class="p-3 border bg-light">Custom column padding</div>
-              </div>
-              <div class="col">
-                <div class="p-3 border bg-light">Custom column padding</div>
-              </div> */}
-
-
+              {reqList(user)}             
             </div>
           </div>
-
-        {/* <div className="container px-4">
-          <div className="row gx-5 d-flex req-div">
-              {user.isComplete() ? "No Requests Left!" : reqList(user) }
-          </div>
-        </div> */}
         </li>
-      ));
-    // const userReq = userArr.map((user, index) => (
-    //     <li key={user.id} className='mb-3'>
-    //       User {user.id} Requests:
-    //     <div className="container px-4">
-    //       <div className="row gx-5 d-flex req-div">
-    //           {user.isComplete() ? "No Requests Left!" : reqList(user) }
-    //       </div>
-    //     </div>
-    //     </li>
-    //   ));
-    
+      ));   
   
     return (
         <ul>

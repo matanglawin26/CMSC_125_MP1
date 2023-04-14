@@ -18,7 +18,6 @@ class Resource {
   isDone() {
     const result = this.__time <= 0;
     if(result) this.__time = 0;
-    // return result;
     return result;
   }
 

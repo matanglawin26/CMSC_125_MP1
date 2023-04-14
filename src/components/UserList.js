@@ -1,8 +1,6 @@
 import React from 'react'
 
 const UserList = ({ data }) => {
-  // console.log("DATA: ",JSON.stringify(data));
-
   const userArr = Object.values(data);
 
   const reqList = (user) => {
