@@ -70,10 +70,10 @@ function App() {
   const main = () => {
     let intervalId = setInterval(() => {
       if (Object.keys(sim.process()).length > 0) {
-        sim.updateQueue();
 
         for (let [userId, res] of Object.entries(sim.process())) {
           res.decrement();
+          sim.updateQueue(res);
           if (res.isDone()) {
               res.setIsExecuting(false);
               sim.remove(userId);

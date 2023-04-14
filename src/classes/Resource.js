@@ -39,7 +39,7 @@ class Resource {
 
   toString(flag = false) {
     if(flag) return `R${this.id}, Time: (${this.__initialTime} s)`;
-    return this.__isWaiting ? `Waiting for R${this.id}` : `R${this.id}, Time: (${this.__time} s)` ;
+    return this.__isWaiting ? `Waiting for R${this.id} to be free` : `R${this.id}, Time: (${this.__time} s)` ;
   }
 }
 

@@ -13,16 +13,32 @@ class Simulation {
     for (let user of users) {
       if (!user.isComplete()) {
         let currUserReq = user.currReq();
-        if (!this.inProcess(currUserReq, user)) {
+
+        if(this.reqInProcess(currUserReq)) {
+          if(this.userInProcess(user)) continue;
+
+          if(!this.__queue.inQueue(user)){
+            currUserReq.setIsWaiting(true);
+            this.addQueue(currUserReq, user);
+          }
+        }else{
           if(this.isNext(currUserReq.id, user)) {
             currUserReq.setIsWaiting(false);
             this.delete(currUserReq, user);
             this.addProcess(user.id, currUserReq);
           }
-        } else if (!this.__queue.inQueue(user)) {
-          currUserReq.setIsWaiting(true);
-          this.addQueue(currUserReq, user);
         }
+
+        // if (!this.inProcess(currUserReq, user)) {
+        //   if(this.isNext(currUserReq.id, user)) {
+        //     currUserReq.setIsWaiting(false);
+        //     this.delete(currUserReq, user);
+        //     this.addProcess(user.id, currUserReq);
+        //   }
+        // } else if (!this.__queue.inQueue(user)) {
+        //   currUserReq.setIsWaiting(true);
+        //   this.addQueue(currUserReq, user);
+        // }
       }
     }
   }
@@ -56,8 +72,8 @@ class Simulation {
     this.__queue.enqueue(this.__process, currRes, currUser);
   }
 
-  updateQueue() {
-    this.__queue.update();
+  updateQueue(currRes) {
+    this.__queue.update(currRes);
   }
 
   addProcess(currUserId, currUserReq) {   
@@ -65,10 +81,13 @@ class Simulation {
     this.__process[currUserId] = currUserReq;
   }
 
-  inProcess(currReq, currUser) {
-    for (let [userId, req] of Object.entries(this.__process)) {
-      userId = parseInt(userId);
-      if (currReq.id == req.id && currUser.id != userId) {
+  userInProcess(currUser) {
+    return currUser.id in this.__process;
+  }
+
+  reqInProcess(currReq) {
+    for (const req of Object.values(this.__process)) {
+      if (req.id === currReq.id) {
         return true;
       }
     }

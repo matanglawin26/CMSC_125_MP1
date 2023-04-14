@@ -30,7 +30,7 @@ class Queue {
     }
   
     dequeue(req, currUser) {
-        let currReq = this.__queue[req.id];
+        const currReq = this.__queue[req.id];
         if (currReq.length) {
             const { user, req } = currReq[0];
             if (user.id == currUser.id) {
@@ -39,12 +39,18 @@ class Queue {
         }
     }
   
-    update() {
-        for (let users of Object.values(this.__queue)) {
-            for (let { req } of users) {
-                if (req.time() > 0) req.decrement()
+    update(currRes) {
+        const currQueue = this.__queue[currRes.id]
+        if(currQueue.length){
+            for (let { req } of currQueue) {
+                req.decrement()
             }
         }
+        // for (let users of Object.values(this.__queue)) {
+        //     for (let { req } of users) {
+        //         if (req.time() > 0) req.decrement()
+        //     }
+        // }
     }
   
     lastQueue(resId) {
