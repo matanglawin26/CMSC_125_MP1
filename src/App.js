@@ -12,22 +12,19 @@ import QueueList from './components/QueueList';
 
 function App() {
   const [isInitdisabled, setIsInitDisabled] = useState(false);
-  const [isStartdisabled, setIsStartDisabled] = useState(true);
-  const [isStopdisabled, setIsStopDisabled] = useState(true);
+  const [isStartDisabled, setIsStartDisabled] = useState(false);
+  const [isExecuting, setIsExecuting] = useState(false);
   const [userReqlist, setUserReqList] = useState({});
   const [init, setInit] = useState(false);
   const [userNum, setUserNum] = useState(0);
   const [resourceNum, setResourceNum] = useState(0);
   const [availableRes, setAvailableRes] = useState([]);
   const [userList, setUserList] = useState([]);
-  const [initialData, setInitialData] = useState([])
   const [users, setUsers] = useState([]);
   const [sim, setSim] = useState(null);
   const [timeElapsed, setTimeElapsed] = useState(0);
-  const [stop, setStop] = useState(false);
   const [queue, setQueue] = useState([])
   const [isComplete, setIsComplete] = useState(false);
-  const [simStatus, setSimStatus] = useState([]);
   // const userNum = 5;
   // const userNum = Math.floor(Math.random() * 10) + 1;
   // const userNum = Math.floor(Math.random() * 30) + 1;
@@ -49,8 +46,8 @@ function App() {
   // console.log('user: ', users);
 
   useEffect(() => {
-    // setAvailableRes(uniqueList(resourceNum));
-    // setUserList(uniqueList(userNum));
+    setAvailableRes(uniqueList(resourceNum));
+    setUserList(uniqueList(userNum));
     
     // setUserNum(Math.floor(Math.random() * 10) + 1);
     // setResourceNum(Math.floor(Math.random() * 10) + 1);
@@ -63,8 +60,6 @@ function App() {
     if(userList && availableRes){
       console.log("\n\nEVER CHANGING MOFO\n\n")
       const userArr = userArray(userList, availableRes);
-      const userInit = userArray(userList, availableRes);
-      setInitialData(userInit);
       setUsers(userArr);
     }
   },[availableRes, userList])
@@ -79,8 +74,7 @@ function App() {
   useEffect(() => {
     if (sim) {
       setTimeElapsed(sim.time());
-      setQueue(sim.queue())
-      setSimStatus(sim.status());
+      setQueue(sim.queue());
     }
   }, [sim]);
 
@@ -88,12 +82,13 @@ function App() {
     e.preventDefault();
     setInit(!init);
     setIsStartDisabled(false);
-    setUserNum(5);
-    setAvailableRes([5, 7, 8, 25, 30]);
-    setUserList([5, 9, 11, 23]);
     setIsComplete(false);
-    // setUserNum(Math.floor(Math.random() * 10) + 1);
-    // setResourceNum(Math.floor(Math.random() * 10) + 1);
+
+    // setUserNum(5);
+    // setAvailableRes([5, 7, 8, 25, 30]);
+    // setUserList([5, 9, 11, 23]);
+    setUserNum(Math.floor(Math.random() * 10) + 1);
+    setResourceNum(Math.floor(Math.random() * 10) + 1);
     // setUsers(userArray(userList, availableRes));
     // setSim(simulation);
   }
@@ -105,10 +100,10 @@ function App() {
   // console.log("SIM PROCESS(): ",typeof sim.process())
   const handleStart = (e) => {
     e.preventDefault();
-    // setIsStartDisabled(true);
+    setIsStartDisabled(true);
     // setIsInitDisabled(true);
-    setIsStopDisabled(false);
     setIsComplete(false);
+    setIsExecuting(true);
     // setInitialData(users);
     console.log("USER LIST:",userList);
     console.log("AVAILABLE RES:",availableRes);
@@ -186,7 +181,7 @@ function App() {
         for (let [userId, res] of Object.entries(sim.process())) {
           // if(res.id === 30)
             console.log("RES ID:", res.id, "TIME: ",res.time());
-          res.decrement();        
+            res.decrement();
           if (res.isDone()) {
               // console.log("USER ID: ", userId, "TYPE OF: ", typeof userId);
               // userId = parseInt(userId);
@@ -196,16 +191,19 @@ function App() {
               // currUser.dumpReq();
               sim.initialize(users);
               // res.decrement();        
-          }  
+          }else{
+            // res.decrement();        
+          }
         }
         console.log("SIM QUEUE: ", sim.queue());
         sim.timeUp();
         // alert();
-        sim.status();
+        // sim.status
         setTimeElapsed(sim.time());
       } else {
         clearInterval(intervalId);
         setIsComplete(true);
+        setIsExecuting(false);
         return;
       }
     }, 1000);
@@ -215,44 +213,49 @@ function App() {
     <div className="App">
       <div className='container-fluid'>
         <div className='container text-center my-4'>
-          <p className="h1 text-light">
+          <p className="h3 text-light">
             CMSC 125 - MP1
           </p>
-          <p className="h4 text-light made-by">
+          <p className="h6 text-light made-by">
             by Dinniel Gie S. Gilig
           </p>
         </div>
 
-        <div className="row justify-content-center gx-4">
+        <div className="row justify-content-center gx-4 mb-4">
           <div className="col col-2">
             <p className='text-center text-uppercase fs-3'>User Requests</p>
             <div className='py-2 bg-1 container-height box-outline'>
-                <UserList data={initialData}/>
+                <UserList data={users}/>
             </div>
           </div>
-          <div className="col col-6">
+          <div className="col col-7">
             <p className='text-center text-uppercase fs-3'>Simulation</p>
-            <div className='py-2 bg-2 container-height box-outline sim-box'>
-                {sim && <p className='text-center'>Time Elapsed: {timeElapsed}</p>
+            <div className='py-2 bg-2 box-outline sim-box'>
+                {sim && <p className='text-center fs-2 text-uppercase time-elapsed'>Time Elapsed: <span className='text-lowercase'>{timeElapsed}s</span></p>
                 }
-                <SimDisplay data={users} status={simStatus} />
-                {isComplete && <p className='text-center'>ALL PROCESSES DONE!</p>}
+                <SimDisplay data={users} />
             </div>
           </div>
           <div className="col col-2">
-            <p className='text-center text-uppercase fs-3'>Queue/In Waiting...</p>
+            <p className='text-center text-uppercase fs-3'>All Resources</p>
             <div className='p-2 bg-1 container-height box-outline'>
+                <p className='text-center fs-5'>Queue/In Waiting...</p>
                 <QueueList data={queue} />
-                {/* {queue && <QueueList data={queue} />} */}
             </div>
           </div>
         </div>
 
-        <div className="d-flex flex-row justify-content-center mt-5">
+        {isComplete && 
+        <p className='mt-2 text-center process-done fs-1'>ALL PROCESSES DONE!</p>
+        }
+        {isExecuting ? 
+          <p className='mt-2 text-center process-done fs-1'>EXECUTING...</p> 
+          : isStartDisabled ? null :
+          <div className="d-flex flex-row justify-content-center">
           <button className='sim-button sim-button-1' type="button" disabled={isInitdisabled} onClick={handleInit}>Initialize</button>
-          <button className='sim-button sim-button-2' type="button" disabled={isStartdisabled} onClick={handleStart}>Start</button>
+          <button className='sim-button sim-button-2' type="button" disabled={isStartDisabled} onClick={handleStart}>Start</button>
           {/* <button className='sim-button bg-danger sim-button-3' type="button" disabled={isStopdisabled} onClick={() => setStop(true)}>Stop</button> */}
-        </div>
+        </div>}
       </div>
       <Background />
     </div>

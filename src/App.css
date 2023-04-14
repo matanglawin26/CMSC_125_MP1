@@ -2,6 +2,11 @@ p, ul, li{
   color:white;
 }
 
+li{
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
 .main-container{
   height:100%;
 }
@@ -15,7 +20,7 @@ p, ul, li{
 }
 
 .container-height {
-  height: 60vh;
+  height: 65vh;
   overflow-y: scroll;
 }
 
@@ -24,7 +29,9 @@ p, ul, li{
 }
 
 .sim-box{
-  overflow: scroll !important;
+  /* overflow-x: scroll !important; */
+  overflow-y: scroll !important;
+  height: 65vh;
 }
 
 .sim-button{  
@@ -56,6 +63,28 @@ p, ul, li{
 
 .req-div{
   margin-left: 0.5rem !important;
+}
+
+.res-info{
+  font-family: 'Inconsolata', monospace;
+  font-size: 15px;
+}
+
+.process-done{
+  font-family: 'Poppins', sans-serif;
+}
+
+.time-elapsed{
+  font-family: 'Hind', sans-serif;
+}
+
+.sim-button-2:disabled{
+  background-color: #334440;
+  color:rgb(158, 157, 157);
+}
+
+.av-res{
+  font-size: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

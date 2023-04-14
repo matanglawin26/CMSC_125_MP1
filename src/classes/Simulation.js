@@ -14,16 +14,17 @@ class Simulation {
       if (!user.isComplete()) {
         let currUserReq = user.currReq();
         if (!this.inProcess(currUserReq, user)) {
-          currUserReq.setIsWaiting(false);
-          this.delete(currUserReq, user);
-          this.addProcess(user.id, currUserReq);
+          if(this.isNext(currUserReq.id, user)) {
+            currUserReq.setIsWaiting(false);
+            this.delete(currUserReq, user);
+            this.addProcess(user.id, currUserReq);
+          }
         } else if (!this.__queue.inQueue(user)) {
           currUserReq.setIsWaiting(true);
           this.addQueue(currUserReq, user);
         }
       }
     }
-    console.log("THIS PROCESS: ", this.__process)
   }
 
   time() {
@@ -40,6 +41,15 @@ class Simulation {
 
   process() {
     return this.__process;
+  }
+
+  isNext(reqId, nextUser){
+    const currQueue = this.__queue.queue()[reqId];
+    if(currQueue.length){
+      const { user } = currQueue[0];
+      return user.id == nextUser.id
+    }
+    return true;
   }
 
   addQueue(currRes, currUser) {

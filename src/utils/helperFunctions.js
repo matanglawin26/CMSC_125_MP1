@@ -26,17 +26,17 @@ export const uniqueList = (n, inList = null) => {
 export const userArray = (userList, res) => {
     let users = userList.map(user => new User(user));
 
-    if(userList.length > 0 ){
-        users[0].resRequest([new Resource(5, 5), new Resource(8, 10), new Resource(30, 15)]);
-        users[1].resRequest([new Resource(5, 5), new Resource(7, 6), new Resource(8, 7)]);
-        users[2].resRequest([new Resource(5, 8), new Resource(30, 5), new Resource(25, 4)]);
-        users[3].resRequest([new Resource(25, 10)]);  
-    }
-    // for (let user of users) {
-    //     let reqNum = Math.floor(Math.random() * res.length) + 1;
-    //     let reqList = uniqueList(reqNum, res).map(id => new Resource(id, Math.floor(Math.random() * 5) + 1));
-    //     user.resRequest(reqList);
+    // if(userList.length > 0 ){
+    //     users[0].resRequest([new Resource(5, 5), new Resource(8, 10), new Resource(30, 15)]);
+    //     users[1].resRequest([new Resource(5, 5), new Resource(7, 6), new Resource(8, 7)]);
+    //     users[2].resRequest([new Resource(5, 8), new Resource(30, 5), new Resource(25, 4)]);
+    //     users[3].resRequest([new Resource(25, 10)]);  
     // }
+    for (let user of users) {
+        let reqNum = Math.floor(Math.random() * res.length) + 1;
+        let reqList = uniqueList(reqNum, res).map(id => new Resource(id, Math.floor(Math.random() * 10) + 1));
+        user.resRequest(reqList);
+    }
     return users;
 }
 

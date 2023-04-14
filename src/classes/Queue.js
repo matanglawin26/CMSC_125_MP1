@@ -22,7 +22,7 @@ class Queue {
             waitTime += req.time();
             waitTime += user.currReq().time();
         } else {
-            for (let [userId, res] of Object.entries(currProcess)) {
+            for (let [_, res] of Object.entries(currProcess)) {
                 if (currRes.id == res.id) {
                     waitTime += res.time();
                 }
@@ -49,7 +49,7 @@ class Queue {
     update() {
         for (let users of Object.values(this.__queue)) {
             for (let { req } of users) {
-                req.decrement()
+                if (req.time() > 0) req.decrement()
             }
         }
     }

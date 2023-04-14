@@ -9,14 +9,14 @@ const UserList = ({ data }) => {
     return user.reqList().map((req, idx) => 
       (
         <li key={idx}>
-          {req.toString()}
+          {req.toString(true)}
         </li>
       )
     )
   }
 
   const userReq = userArr.map((user, index) => (
-    <li key={user.id}>
+    <li key={user.id} style={{color:'#C0E2BF', fontSize:'20px'}}>
       User {user.id} (U{user.id}) 
       <ul>
         {reqList(user)}

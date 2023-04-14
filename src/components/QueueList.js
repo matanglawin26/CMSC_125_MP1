@@ -4,18 +4,17 @@ const QueueList = ({ data }) => {
   // console.log("DATA: ",JSON.stringify(data));
 
   const queueKeys = Object.keys(data);
-  const queueValues = Object.keys(data);
   // const key = Object.keys(data).__queue;
 
   const queueList = (key) => {
     return data[key].map(({user, req}, idx) => (
         <li key={idx}>
-           User {user.id} (Time Left: {req.time()} s)
+           User {user.id} (Waiting Time: {req.time()} s)
         </li>
     ))
   }
   const queue = queueKeys.map((key, index) => (
-    <li key={index}>
+    <li key={index} style={{color:'#C0E2BF', fontSize:'20px'}}>
       Resource {key}
       <ul>
         {data[key].length? queueList(key) : <li>No Users Waiting!</li>}

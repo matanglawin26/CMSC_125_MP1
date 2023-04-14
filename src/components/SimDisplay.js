@@ -4,18 +4,17 @@ const SimDisplay = ({ data }) => {
     const userArr = Object.values(data);
 
     const divStyles = (req) => {
-      if(req.isExecuting()){
+      if(req.isDone()){
         return {
-          backgroundColor: '#C0E2BF'
+          backgroundColor: '#040F15',
         }
       }else if(req.isWaiting()){
         return {
           backgroundColor: '#E0D263'
         }
-      }else if(req.isDone()){
+      }else if(req.isExecuting()){
         return {
-          backgroundColor: '#040F15',
-          color: 'white'
+          backgroundColor: '#C0E2BF'
         }
       }else{
         return {
@@ -25,21 +24,21 @@ const SimDisplay = ({ data }) => {
     }
 
     const pStyles = (req) => {
-      if(req.isExecuting()){
+      if(req.isDone()){
         return {
-          color: 'black'
+          color: 'white'
         }
       }else if(req.isWaiting()){
         return {
           color: 'black'
         }
-      }else if(req.isDone()){
+      }else if(req.isExecuting()){
         return {
-          color: 'white'
+          color: 'black'
         }
       }else{
         return {
-          color: 'black'
+          color: '#FAFAFA'
         }
       }
     }
@@ -49,7 +48,7 @@ const SimDisplay = ({ data }) => {
           (
             <div key={idx} className="col">
               <div className='p-3' style={divStyles(req)}>
-                <p className='text-center mb-0' style={pStyles(req)}>
+                <p className='text-center mb-0 res-info' style={pStyles(req)}>
                   {req.isDone() ? `R${req.id} Complete!`: req.toString()} 
                   {/* - {req.isWaiting()? "WAITING" : "NOT WAITING"} */}
                 </p>
@@ -67,7 +66,7 @@ const SimDisplay = ({ data }) => {
         <li key={user.id} className='mb-3'>
           User {user.id} Requests:
           <div className="container px-4">
-            <div className="row gx-4">
+            <div className="row gx-4 gy-4">
               {reqList(user) }
               {/* {user.isComplete() ? "No Requests Left!" : reqList(user) } */}
 
