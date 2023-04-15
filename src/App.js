@@ -90,7 +90,7 @@ function App() {
         setIsExecuting(false);
         return;
       }
-    }, 1000);
+    }, 500);
   }
 
   return (
