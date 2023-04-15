@@ -34,14 +34,8 @@ class Queue {
             const { user, req } = lastItem;
             waitTime = req.time();
             waitTime += user.currReq().time();
-        } else {
-            // for (let [userId, res] of Object.entries(currProcess)) {
-            //     if (currRes.id == res.id) {
-            //         waitTime = res.time();
-            //         firstUser = userId;
-            //     }
-            // }
         }
+
         this.__queue[currRes.id].push({user: currUser, req: new Resource(currRes.id, waitTime)});
         this.__using[currRes.id] = firstUser;
     }
@@ -63,11 +57,6 @@ class Queue {
                 req.decrement()
             }
         }
-        // for (let users of Object.values(this.__queue)) {
-        //     for (let { req } of users) {
-        //         if (req.time() > 0) req.decrement()
-        //     }
-        // }
     }
   
     lastQueue(resId) {

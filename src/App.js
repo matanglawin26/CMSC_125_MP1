@@ -80,8 +80,6 @@ function App() {
               res.setIsExecuting(false);
               sim.remove(userId);
               sim.initialize(users);
-          }else{
-            // res.decrement();        
           }
         }
         sim.timeUp();

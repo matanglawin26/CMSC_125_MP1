@@ -5,14 +5,6 @@ export const uniqueList = (n, inList = null) => {
     let l = [];
     
     if (inList === null) {
-        // let count = 0;
-        // while (count < n) {
-        //     let rndNum = Math.floor(Math.random() * 10) + 1;
-        //     if (!l.includes(rndNum)) {
-        //         l.push(rndNum);
-        //         count += 1;
-        //     }
-        // }
         l = shuffle(Array.from({length: 30}, (_, i) => i + 1)).slice(0, n);
     } else {      
       l = inList.slice();

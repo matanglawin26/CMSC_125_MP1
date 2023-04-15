@@ -29,17 +29,6 @@ class Simulation {
             this.__queue.addUsing(currUserReq, user);
           }
         }
-
-        // if (!this.inProcess(currUserReq, user)) {
-        //   if(this.isNext(currUserReq.id, user)) {
-        //     currUserReq.setIsWaiting(false);
-        //     this.delete(currUserReq, user);
-        //     this.addProcess(user.id, currUserReq);
-        //   }
-        // } else if (!this.__queue.inQueue(user)) {
-        //   currUserReq.setIsWaiting(true);
-        //   this.addQueue(currUserReq, user);
-        // }
       }
     }
   }

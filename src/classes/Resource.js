@@ -1,11 +1,10 @@
 class Resource {
-  constructor(id, time, currUser = null) {
+  constructor(id, time) {
     this.id = id;
     this.__time = time;
     this.__initialTime = time;
     this.__isWaiting = false;
     this.__isExecuting = false;
-    // this.currUser = currUser;
   }
 
   decrement() {
