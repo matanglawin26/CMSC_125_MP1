@@ -74,8 +74,8 @@ class Queue {
         return false;
     }
 
-    addUsing(req, currUser){
-        this.__using[req.id] = currUser.id;
+    setUsing(req, currUserId){
+        this.__using[req.id] = currUserId;
     }
 }
 

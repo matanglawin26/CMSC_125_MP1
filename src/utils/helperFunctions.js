@@ -22,7 +22,7 @@ export const userArray = (userList, res) => {
 
     for (let user of users) {
         let reqNum = Math.floor(Math.random() * res.length) + 1;
-        let reqList = uniqueList(reqNum, res).map(id => new Resource(id, Math.floor(Math.random() * 10) + 1));
+        let reqList = uniqueList(reqNum, res).map(id => new Resource(id, Math.floor(Math.random() * 30) + 1));
         user.resRequest(reqList);
     }
     return users;

@@ -2,8 +2,7 @@ import React from 'react'
 
 const QueueList = ({ data, using }) => {
   const queueKeys = Object.keys(data);
-  console.log("USING: ",using)
-  console.log("DATA: ",data)
+  
   const queueList = (key) => {
     return data[key].map(({user, req}, idx) => (
         <li key={idx}>

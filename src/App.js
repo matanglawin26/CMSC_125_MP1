@@ -78,7 +78,7 @@ function App() {
           sim.updateQueue(res);
           if (res.isDone()) {
               res.setIsExecuting(false);
-              sim.remove(userId);
+              sim.remove(userId, res);
               sim.initialize(users);
           }
         }

@@ -26,7 +26,7 @@ class Simulation {
             currUserReq.setIsWaiting(false);
             this.delete(currUserReq, user);
             this.addProcess(user.id, currUserReq);
-            this.__queue.addUsing(currUserReq, user);
+            this.__queue.setUsing(currUserReq, user.id);
           }
         }
       }
@@ -48,6 +48,7 @@ class Simulation {
   using(){
     return this.__queue.using();
   }
+
   process() {
     return this.__process;
   }
@@ -87,7 +88,8 @@ class Simulation {
     return false;
   }
 
-  remove(currUser) {
+  remove(currUser, currRes) {
+    this.__queue.setUsing(currRes, 0)
     delete this.__process[currUser];
   }
 
