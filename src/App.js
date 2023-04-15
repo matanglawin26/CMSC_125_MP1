@@ -53,8 +53,8 @@ function App() {
     setIsStartDisabled(false);
     setIsComplete(false);
 
-    setUserNum(Math.floor(Math.random() * 10) + 1);
-    setResourceNum(Math.floor(Math.random() * 10) + 1);
+    setUserNum(Math.floor(Math.random() * 30) + 1);
+    setResourceNum(Math.floor(Math.random() * 30) + 1);
   }
 
   const handleStart = (e) => {

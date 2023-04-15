@@ -5,14 +5,15 @@ export const uniqueList = (n, inList = null) => {
     let l = [];
     
     if (inList === null) {
-        let count = 0;
-        while (count < n) {
-            let rndNum = Math.floor(Math.random() * 10) + 1;
-            if (!l.includes(rndNum)) {
-                l.push(rndNum);
-                count += 1;
-            }
-        }
+        // let count = 0;
+        // while (count < n) {
+        //     let rndNum = Math.floor(Math.random() * 10) + 1;
+        //     if (!l.includes(rndNum)) {
+        //         l.push(rndNum);
+        //         count += 1;
+        //     }
+        // }
+        l = shuffle(Array.from({length: 30}, (_, i) => i + 1)).slice(0, n);
     } else {      
       l = inList.slice();
         while (l.length > n) {
@@ -40,3 +41,11 @@ const compareId = (a, b) => {
 
     return a < b ? -1 : 1;
 }
+
+const shuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
