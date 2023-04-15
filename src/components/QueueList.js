@@ -1,8 +1,9 @@
 import React from 'react'
 
-const QueueList = ({ data }) => {
+const QueueList = ({ data, using }) => {
   const queueKeys = Object.keys(data);
-
+  console.log("USING: ",using)
+  console.log("DATA: ",data)
   const queueList = (key) => {
     return data[key].map(({user, req}, idx) => (
         <li key={idx}>
@@ -10,9 +11,10 @@ const QueueList = ({ data }) => {
         </li>
     ))
   }
+
   const queue = queueKeys.map((key, index) => (
     <li key={index} style={{color:'#C0E2BF', fontSize:'20px'}}>
-      Resource {key}
+      Resource {key} - <span style={{fontSize:'initial', color:'#86E5F8'}}>(Current User: {using[key] ? `U${using[key]}` : "None"})</span>
       <ul>
         {data[key].length? queueList(key) : <li>No Users Waiting!</li>}
       </ul>

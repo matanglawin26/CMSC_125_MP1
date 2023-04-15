@@ -20,6 +20,7 @@ function App() {
   const [sim, setSim] = useState(null);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [queue, setQueue] = useState([])
+  const [using, setUsing] = useState([]);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
     if (sim) {
       setTimeElapsed(sim.time());
       setQueue(sim.queue());
+      setUsing(sim.using());
     }
   }, [sim]);
 
@@ -115,14 +117,14 @@ function App() {
           <div className="col col-7">
             <p className='text-center text-uppercase fs-3'>Simulation - <span className='text-center fs-2 text-uppercase time-elapsed'>Time Elapsed: <span className='text-lowercase'>{timeElapsed}s</span></span></p>
             <div className='py-2 bg-2 box-outline sim-box'>
-                <SimDisplay data={users} />
+                <SimDisplay data={users}/>
             </div>
           </div>
-          <div className="col col-2">
+          <div className="col col-3">
             <p className='text-center text-uppercase fs-3'>All Resources</p>
             <div className='p-2 bg-1 container-height box-outline'>
                 <p className='text-center fs-5'>Queue/In Waiting...</p>
-                <QueueList data={queue} />
+                <QueueList data={queue} using={using}/>
             </div>
           </div>
         </div>

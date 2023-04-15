@@ -21,6 +21,7 @@ export const uniqueList = (n, inList = null) => {
             l.splice(idx, 1);
         }
     }
+    l = l.sort(compareId);
     return l.sort(compareId);
 }
 

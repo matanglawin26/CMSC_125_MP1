@@ -61,7 +61,14 @@ const SimDisplay = ({ data }) => {
           User {user.id} Requests:
           <div className="container px-4">
             <div className="row gx-4 gy-4">
-              {reqList(user)}             
+              {user.isComplete() ? 
+                <div className='p-3' style={{backgroundColor:'#129FBB'}}>
+                  <p className='text-center mb-0 res-info' >
+                    All Requests Completed!
+                  </p>
+                </div>
+              : 
+              reqList(user)}             
             </div>
           </div>
         </li>

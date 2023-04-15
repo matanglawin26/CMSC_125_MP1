@@ -26,6 +26,7 @@ class Simulation {
             currUserReq.setIsWaiting(false);
             this.delete(currUserReq, user);
             this.addProcess(user.id, currUserReq);
+            this.__queue.addUsing(currUserReq, user);
           }
         }
 
@@ -55,6 +56,9 @@ class Simulation {
     return this.__queue.queue();
   }
 
+  using(){
+    return this.__queue.using();
+  }
   process() {
     return this.__process;
   }

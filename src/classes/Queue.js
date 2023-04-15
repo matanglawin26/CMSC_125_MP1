@@ -3,8 +3,10 @@ import Resource from "./Resource";
 class Queue {
     constructor(resList) {
         this.__queue = {};
-        resList.forEach((res) => {
-            this.__queue[res] = [];
+        this.__using = {}
+        resList.forEach((resId) => {
+            this.__queue[resId] = [];
+            this.__using[resId] = 0;
         });
     }
   
@@ -12,21 +14,36 @@ class Queue {
         return this.__queue
     }
 
+    using(){
+        return this.__using;
+    }
+
     enqueue(currProcess, currRes, currUser) {
-        let waitTime = 0;
+        let waitTime;
+        let firstUser = 0;
         let lastItem = this.lastQueue(currRes.id);
-        if (lastItem) {
-            const { user, req } = lastItem;
-            waitTime += req.time();
-            waitTime += user.currReq().time();
-        } else {
-            for (let [_, res] of Object.entries(currProcess)) {
-                if (currRes.id == res.id) {
-                    waitTime += res.time();
-                }
+
+        for (let [userId, res] of Object.entries(currProcess)) {
+            if (currRes.id == res.id) {
+                waitTime = res.time();
+                firstUser = userId;
             }
         }
+
+        if (lastItem) {
+            const { user, req } = lastItem;
+            waitTime = req.time();
+            waitTime += user.currReq().time();
+        } else {
+            // for (let [userId, res] of Object.entries(currProcess)) {
+            //     if (currRes.id == res.id) {
+            //         waitTime = res.time();
+            //         firstUser = userId;
+            //     }
+            // }
+        }
         this.__queue[currRes.id].push({user: currUser, req: new Resource(currRes.id, waitTime)});
+        this.__using[currRes.id] = firstUser;
     }
   
     dequeue(req, currUser) {
@@ -66,6 +83,10 @@ class Queue {
             }
         }
         return false;
+    }
+
+    addUsing(req, currUser){
+        this.__using[req.id] = currUser.id;
     }
 }
 
